@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: day4kbpod
+    x: kbjenkins
+  name: day4kbpod
+  namespace: kbns
+spec:
+  containers:
+  - image: kartavya14/kbappday4:v1
+    name: day4kbpod
+    ports:
+     - containerPort: 80
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Never
+status: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: day4kbsvc1
+  name: day4kbsvc1
+  namespace: kbns
+spec:
+  ports:
+  - name: "80"
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+   x: kbjenkins
+  type: NodePort
+status:
+  loadBalancer: {}
